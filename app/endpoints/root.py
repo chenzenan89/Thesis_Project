@@ -5,7 +5,7 @@ from fastapi import Request
 app_root = APIRouter()
 
 templates = Jinja2Templates(
-    directory="/home/chen/Thesis_Project/app/templates")
+    directory="Templates directory path")
 
 
 @app_root.get("/")
