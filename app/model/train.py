@@ -35,7 +35,7 @@ class trainer:
         self.time_period = project["time_period"]
 
         # Create directory to save models
-        self.path = os.path.join('/home/chen/Thesis_Project/app/model/models',
+        self.path = os.path.join('Path of the models directory',
                                  self.name)
         os.makedirs(self.path, exist_ok=True)
 
