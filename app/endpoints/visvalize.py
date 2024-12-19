@@ -14,7 +14,7 @@ app_visvalize = APIRouter()
 
 # Load Jinja2 templates for HTML rendering
 templates = Jinja2Templates(
-    directory="/home/chen/Thesis_Project/app/templates")
+    directory="Templates directory path")
 
 
 @app_visvalize.get("/api/visvalize")
