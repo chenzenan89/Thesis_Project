@@ -12,9 +12,9 @@ import os
 
 from datetime import datetime, timedelta
 
-setting_info = SettingsManager()
+setting_info = SettingsManager("Setting file path")
 
-project = setting_info.get_project_config("restaurant")
+project = setting_info.get_project_config("project name")
 
 models = Model_compeny()
 
