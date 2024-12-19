@@ -11,3 +11,20 @@ Finally, a web server that can automatically predict and visualize time series d
 ## REQUIREMENTS
 - Python 3.8.x
 - Ubuntu 20.04.6
+
+
+## GETTING STARTED
+
+1. Clone the repository
+```bash
+git clone https://github.com/chenzenan89/Thesis_Project.git
+```
+2. Install the required dependencies
+You can quickly start testing by using the pyproject.toml file in the project
+Please go to the app folder in the project, example: cd Thesis_Project/app
+run:
+```pip install .```
+
+3. Modify the path of the code in the project
+then run:
+```python3 main.py```
