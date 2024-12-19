@@ -3,7 +3,7 @@ import random
 import numpy as np
 from tinydb import TinyDB
 
-db = TinyDB('')
+db = TinyDB('Path of database')
 
 start_time = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
 
