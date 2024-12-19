@@ -5,7 +5,7 @@ class SettingsManager:
 
     def __init__(
             self,
-            settings_file="/home/chen/Thesis_Project/app/config/setting.json"):
+            settings_file='To the location you want to store'):
         self.settings_file = settings_file
         self.settings = self._load_settings()
 
