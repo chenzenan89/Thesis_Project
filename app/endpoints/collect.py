@@ -14,7 +14,7 @@ from database.database_manage import Database
 app_collect = APIRouter()
 
 # Path where database files are stored
-PATH = '/home/chen/Thesis_Project/app/database/data'
+PATH = ''
 
 # Load configuration settings
 setting_info = SettingsManager()
