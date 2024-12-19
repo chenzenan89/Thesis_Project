@@ -26,7 +26,7 @@ Please go to the app folder in the project, example: cd Thesis_Project/app
 run:
 ```pip install .```
 
-4. Modify the path of the code in the project
+3. Modify the path of the code in the project
 
 then run:
 ```python3 main.py```
