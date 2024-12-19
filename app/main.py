@@ -19,7 +19,7 @@ app.add_middleware(
 
 app.mount(
     "/static",
-    StaticFiles(directory="/home/chen/Thesis_Project/app/templates/static"),
+    StaticFiles(directory="/app/templates/static"),
     name="static")
 
 app.include_router(app0, tags=["root"])
