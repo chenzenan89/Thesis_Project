@@ -14,7 +14,7 @@ from datetime import datetime, timedelta
 
 setting_info = SettingsManager("Setting file path")
 
-project = setting_info.get_project_config("project name")
+# project = setting_info.get_project_config("project name")
 
 models = Model_compeny()
 
@@ -117,7 +117,7 @@ class trainer:
     def prediction(self,
                    start_day: int = 0,
                    end_day: int = 1,
-                   freq: int = project["time_period"]):
+                   freq: int = 15):
         freq = str(freq) + "min"
         # print(freq)
         # Generate future data
