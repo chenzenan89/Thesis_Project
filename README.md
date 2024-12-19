@@ -7,3 +7,7 @@ In today’s fast-paced, data-driven world, businesses and organizations often f
 This thesis explores the integration of AI models in a web server to implement a web server that can automatically predict time series data. The web server will have two main functions, one is to automatically process and train data, and the other is to predict data and display the predicted data in a dynamic form.
 
 Finally, a web server that can automatically predict and visualize time series data was implemented. This thesis details the construction of the web server, the integration of models, the challenges encountered, and suggestions for improvement. The web server provides a practical and scalable solution for industries requiring time-sensitive insights, such as energy management, re-tail, and logistics.
+
+## REQUIREMENTS
+- Python 3.8.x
+- Ubuntu 20.04.6
