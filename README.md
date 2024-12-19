@@ -30,3 +30,5 @@ run:
 
 then run:
 ```python3 main.py```
+
+# This guide is still under development. You can follow the prompts to get started quickly. I will supplement the guide later.
