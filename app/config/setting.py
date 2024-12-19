@@ -5,7 +5,7 @@ class SettingsManager:
 
     def __init__(
             self,
-            settings_file='To the location you want to store'):
+            settings_file='To the path of setting file'):
         self.settings_file = settings_file
         self.settings = self._load_settings()
 
