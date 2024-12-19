@@ -2,7 +2,7 @@ import os
 import logging
 
 # Path where log files will be saved
-LOG_PATH = '/home/chen/Thesis_Project/app/model/logs/log_data'
+LOG_PATH = ''
 
 
 class logger:
