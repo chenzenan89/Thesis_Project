@@ -1,0 +1,50 @@
+{
+    "restaurant": {
+        "name": "restaurant",
+        "model": {
+            "type": "hybrid",
+            "prophet_params": {
+                "changepoint_prior_scale": 0.5,
+                "seasonality_mode": "multiplicative",
+                "seasonality_prior_scale": 15.0,
+                "regressors": ["hour_scaled", "month_scaled", "is_open", "is_weekend"],
+                "seasonality": true,
+                "holidays": null
+            },
+            "xgb_params": {
+                "n_estimators": 500,
+                "learning_rate": 0.05,
+                "max_depth": 5
+            }
+        },
+        "calculation_method": "avg",
+        "time_period": "60",
+        "min": 0,
+        "max": 200,
+        "basic_threshold": 5000,
+        "threshold": 1000
+    },
+    "parkinglot": {
+        "name": "parkinglot",
+        "model": {
+            "type": "hybrid",
+            "prophet_params": {
+                "changepoint_prior_scale": 0.5,
+                "seasonality_mode": "multiplicative",
+                "seasonality_prior_scale": 15.0,
+                "regressors": ["hour_scaled", "month_scaled", "is_weekend"],
+                "seasonality": true,
+                "holidays": null
+            },
+            "xgb_params": {
+                "n_estimators": 400,
+                "learning_rate": 0.03,
+                "max_depth": 7
+            }
+        },
+        "calculation_method": "avg",
+        "time_period": "30",
+        "min": 0,
+        "max": 100
+    }
+}

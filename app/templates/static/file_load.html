@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        .custom-file {
+            border: 2px #11263d;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            background-color: #d5cfc7;
+            width: 25vh;
+            margin: 0 auto;
+            height: 5vh;
+        }
+
+        .custom-file-label {
+            text-align: center;
+            margin-top: 15px;
+            color: #11263d;
+            font-size: 20px;
+        }
+
+        #uploadBtn {
+            border: 2px #11263d;
+            border-radius: 20px;
+            background-color: #d5cfc7;
+            width: 25vh;
+            margin: 0 auto;
+            height: 5vh;
+            font-size: 20px;
+        }
+
+
+
+        #infoBtn {
+            background-color: #b2b2b2;
+            border-radius: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container mt-5">
+        <button id="infoBtn" class="btn btn-light btn-lg">info</button>
+
+
+        <h1 class="text-center mt-3">Upload your files</h1>
+        <div class="form-group mt-5">
+            <div class="custom-file mt-3">
+                <input style="display: none;" type="file" id="fileInput" class="form-control" name="files" multiple>
+                <label class="custom-file-label" for="fileInput">Click to Choose File</label>
+            </div>
+        </div>
+
+
+        <!-- fileList -->
+        <ul id="fileList" class="list-group mt-3"></ul>
+
+        <!-- submit -->
+        <button style="display: none;" type="submit" class="btn btn-light mt-3" id="uploadBtn">Upload the file</button>
+
+        <!-- progress -->
+        <div class="progress mt-3" style="display: none;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%"
+                aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+
+        <!-- uploadStatus -->
+        <div id="uploadStatus" class="mt-3"></div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            var button_info = $('#infoBtn');
+            var fileInput = $('#fileInput');
+            var fileList = $('#fileList');
+            var progressBar = $('.progress-bar');
+            var uploadStatus = $('#uploadStatus');
+            var selectedFiles = [];
+
+            $('#infoBtn').click(function () {
+                alert(
+                    "Hello and welcome! You can click the button below to upload the file.\n" +
+                    "Please note that the uploaded file needs to be in JSON format.\n" +
+                    "Here is an example file format:\n\n" +
+                    "{\n" +
+                    '    "name": "string",\n' +
+                    '    "secretKey": "string",\n' +
+                    '    "data": {\n' +
+                    '        "timestamp": "string",\n' +
+                    '        "value": integer\n' +
+                    "    }\n" +
+                    "}"
+                    );
+            });
+
+
+
+            fileInput.on('change', function () {
+                $("#uploadBtn").show();
+                let files = fileInput[0].files;
+
+                for (let i = 0; i < files.length; i++) {
+                    selectedFiles.push(files[i]);
+                    appendFileToList(files[i], selectedFiles.length - 1);
+                }
+
+                fileInput.val('');
+            });
+
+            function appendFileToList(file, index) {
+                var listItem = $(
+                        '<li class="list-group-item d-flex justify-content-between align-items-center"></li>')
+                    .text(file.name);
+                var cancelButton = $('<button class="btn btn-danger btn-sm">Cancel</button>');
+
+
+                cancelButton.on('click', function () {
+                    selectedFiles.splice(index, 1);
+                    listItem.remove();
+                    updateFileList();
+                });
+
+                listItem.append(cancelButton);
+                fileList.append(listItem);
+            }
+
+            function updateFileList() {
+                fileList.empty();
+                selectedFiles.forEach(function (file, index) {
+                    appendFileToList(file, index);
+                });
+            }
+
+
+            $('#uploadBtn').click(function (e) {
+                e.preventDefault();
+                var formData = new FormData();
+
+                if (selectedFiles.length == 0) {
+                    alert('Please select the file you want to upload');
+                    return;
+                }
+
+
+                for (var i = 0; i < selectedFiles.length; i++) {
+                    formData.append('files', selectedFiles[i]);
+                }
+
+
+                $('.progress').show();
+                progressBar.css('width', '0%');
+
+
+                $.ajax({
+                    url: '/api/collect',
+                    type: 'post',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    xhr: function () {
+                        var xhr = new window.XMLHttpRequest();
+
+
+                        xhr.upload.addEventListener('progress', function (e) {
+                            if (e.lengthComputable) {
+                                var percentComplete = (e.loaded / e.total) * 100;
+                                progressBar.css('width', percentComplete + '%');
+                                progressBar.attr('aria-valuenow', percentComplete);
+                            }
+                        }, false);
+
+                        return xhr;
+                    },
+                    success: function (response) {
+                        uploadStatus.html('<p class="text-success">' + response.message +
+                            '</p>');
+                        progressBar.css('width', '0%');
+                        $('.progress').hide(5000);
+                        selectedFiles = [];
+                        fileList.empty();
+                    },
+                    error: function (error) {
+                        var errorMessage = "File upload failed:";
+                        if (error.responseJSON && error.responseJSON.detail) {
+                            errorMessage += "<br>" + error.responseJSON.detail.split(", ")
+                                .join("<br>");
+                        };
+                        uploadStatus.html('<p class="text-danger">' + errorMessage +
+                            '</p>');
+                        progressBar.css('width', '0%');
+
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>
